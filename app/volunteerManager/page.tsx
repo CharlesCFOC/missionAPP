@@ -2048,6 +2048,7 @@ export default function VolunteerManagerPage() {
       {
         id: role.id,
         title: role.title,
+        department: role.department,
         schedule: role.schedule,
         location: role.location,
         address: role.address,
@@ -2316,6 +2317,10 @@ export default function VolunteerManagerPage() {
         ? orientationSessions.find((session) => session.id === sessionModal.sessionId) ??
           null
         : null;
+    const onlinePlatform =
+      sessionDraft.mode === "Online" && sessionDraft.platform
+        ? sessionDraft.platform
+        : undefined;
     const nextSession: OrientationSession = {
       id:
         sessionModal.mode === "edit" && sessionModal.sessionId
@@ -2326,7 +2331,7 @@ export default function VolunteerManagerPage() {
       time: sessionDraft.time,
       host: sessionDraft.host.trim(),
       mode: sessionDraft.mode,
-      platform: sessionDraft.mode === "Online" ? sessionDraft.platform : undefined,
+      platform: onlinePlatform,
       link: sessionDraft.mode === "Online" ? sessionDraft.link.trim() : undefined,
       location:
         sessionDraft.mode === "In-person" ? sessionDraft.location.trim() : undefined,

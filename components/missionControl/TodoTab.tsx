@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import TodoList from "./todo/TodoList";
+import TodoList from "./todo/ToDoList";
 import NotesWall from "./todo/NotesWall";
 import { motion } from "framer-motion";
 import { readStoredTodoLists } from "./storage";
@@ -97,8 +97,8 @@ export default function TodoTab() {
     router.push(`/projectDetails/${newId}?edit=true`);
   };
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, list: TodoListItem) => {
-    e.dataTransfer.setData("listKey", listKey(list));
+  const handleDragStart = (e: any, list: TodoListItem) => {
+    e?.dataTransfer?.setData("listKey", listKey(list));
   };
 
   const handleDropToArchive = (e: React.DragEvent<HTMLDivElement>) => {

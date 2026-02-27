@@ -264,7 +264,7 @@ export default function MyOrganisationTab({
       if (focusError) {
         applyProfile(
           normalizeOrgProfileFromDb(
-            orgData as Record<string, unknown>,
+            orgData as unknown as Record<string, unknown>,
             []
           )
         );
@@ -273,7 +273,7 @@ export default function MyOrganisationTab({
       }
 
       const normalized = normalizeOrgProfileFromDb(
-        orgData as Record<string, unknown>,
+        orgData as unknown as Record<string, unknown>,
         (focusData ?? []) as Record<string, unknown>[]
       );
       applyProfile(normalized);

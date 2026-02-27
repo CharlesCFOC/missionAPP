@@ -25,6 +25,14 @@ type FinanceEntry = {
   receiptUrl: string;
 };
 
+type FinanceEntryDraft = {
+  category: string;
+  type: FinanceEntry["type"];
+  amount: string;
+  notes: string;
+  receiptUrl: string;
+};
+
 const BASE_FOLDERS: FinanceFolder[] = [
   {
     id: "finance-zambia",
@@ -61,9 +69,15 @@ export default function FinanceTab() {
   const [folders, setFolders] = useState<FinanceFolder[]>(BASE_FOLDERS);
 
   const [entries, setEntries] = useState<FinanceEntry[]>(BASE_ENTRIES);
-  const [newEntry, setNewEntry] = useState({ category: "", type: "Expense", amount: "", notes: "", receiptUrl: "" });
+  const [newEntry, setNewEntry] = useState<FinanceEntryDraft>({
+    category: "",
+    type: "Expense",
+    amount: "",
+    notes: "",
+    receiptUrl: "",
+  });
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editingEntry, setEditingEntry] = useState({
+  const [editingEntry, setEditingEntry] = useState<FinanceEntryDraft>({
     category: "",
     type: "Expense",
     amount: "",
@@ -528,7 +542,12 @@ export default function FinanceTab() {
             <select
               className="p-2 rounded bg-white/20 text-white"
               value={newEntry.type}
-              onChange={(e) => setNewEntry({ ...newEntry, type: e.target.value })}
+              onChange={(e) =>
+                setNewEntry({
+                  ...newEntry,
+                  type: e.target.value as FinanceEntry["type"],
+                })
+              }
             >
               <option>Expense</option>
               <option>Income</option>

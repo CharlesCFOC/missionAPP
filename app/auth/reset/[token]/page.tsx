@@ -3,14 +3,18 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import AuthCard from "@/components/auth/AuthCard";
 
-type ResetPasswordPageProps = {
-  params: { token: string };
-};
-
-export default function ResetPasswordPage({ params }: ResetPasswordPageProps) {
+export default function ResetPasswordPage() {
   const supabase = useSupabaseClient();
+  const params = useParams<{ token?: string | string[] }>();
+  const token =
+    typeof params?.token === "string"
+      ? params.token
+      : Array.isArray(params?.token)
+      ? params.token[0] ?? ""
+      : "";
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,18 +27,25 @@ export default function ResetPasswordPage({ params }: ResetPasswordPageProps) {
       if (typeof window === "undefined") return;
 
       if (window.location.hash.includes("access_token")) {
-        const { error } = await supabase.auth.getSessionFromUrl({
-          storeSession: true,
-        });
-        if (error) setError(error.message);
-      } else if (params.token && params.token !== "confirm") {
-        const { error } = await supabase.auth.exchangeCodeForSession(params.token);
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        const accessToken = hashParams.get("access_token");
+        const refreshToken = hashParams.get("refresh_token");
+
+        if (accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          });
+          if (error) setError(error.message);
+        }
+      } else if (token && token !== "confirm") {
+        const { error } = await supabase.auth.exchangeCodeForSession(token);
         if (error) setError(error.message);
       }
     };
 
     handleRecovery();
-  }, [params.token, supabase]);
+  }, [token, supabase]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

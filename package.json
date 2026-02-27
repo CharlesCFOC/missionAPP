@@ -5,9 +5,9 @@
   "scripts": {
     "clean:next": "node -e \"require('fs').rmSync('.next', { recursive: true, force: true });\"",
     "dev:clean": "npm run clean:next && npm run dev",
-    "dev": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next dev -p 3001",
-    "build": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next build",
-    "start": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next start -p 3001",
+    "dev": "if [ -f certs/node-extra-ca.pem ]; then NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next dev -p 3001; else next dev -p 3001; fi",
+    "build": "if [ -f certs/node-extra-ca.pem ]; then NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next build; else next build; fi",
+    "start": "if [ -f certs/node-extra-ca.pem ]; then NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next start -p 3001; else next start -p 3001; fi",
     "lint": "eslint"
   },
   "dependencies": {
@@ -31,7 +31,6 @@
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-markdown": "^10.1.0",
-    "react-quill": "^2.0.0",
     "react-simple-maps": "^3.0.0",
     "react-simplemde-editor": "^5.2.0",
     "recharts": "^2.12.2",

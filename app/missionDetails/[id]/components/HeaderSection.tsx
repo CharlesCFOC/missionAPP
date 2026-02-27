@@ -19,7 +19,7 @@ type HeaderSectionProps = {
   onUpdateNumberField: (field: keyof MissionData, value: string) => void;
   onDateChange: (key: "startDate" | "endDate", value: string) => void;
   onCoverFileChange: (event: ChangeEvent<HTMLInputElement>) => Promise<void> | void;
-  coverFileInputRef: RefObject<HTMLInputElement>;
+  coverFileInputRef: RefObject<HTMLInputElement | null>;
 };
 
 const DEFAULT_PALETTE = {

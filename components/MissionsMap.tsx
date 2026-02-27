@@ -5,18 +5,25 @@ import { useState } from "react";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-const missions = [
-  { id: 1, name: "Guyane", coordinates: [-52.33, 4.94], region: "Amériques" },
-  { id: 2, name: "Zambie", coordinates: [27.85, -13.13], region: "Afrique" },
-  { id: 3, name: "Haïti", coordinates: [-72.33, 18.97], region: "Amériques" },
-];
-
 const regionColors = {
   Afrique: "#ffd166",
   Amériques: "#06d6a0",
   Europe: "#118ab2",
   Asie: "#ef476f",
 };
+
+type RegionKey = keyof typeof regionColors;
+
+const missions: {
+  id: number;
+  name: string;
+  coordinates: [number, number];
+  region: RegionKey;
+}[] = [
+  { id: 1, name: "Guyane", coordinates: [-52.33, 4.94], region: "Amériques" },
+  { id: 2, name: "Zambie", coordinates: [27.85, -13.13], region: "Afrique" },
+  { id: 3, name: "Haïti", coordinates: [-72.33, 18.97], region: "Amériques" },
+];
 
 export default function MissionsMap() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -29,8 +36,8 @@ export default function MissionsMap() {
         className="bg-transparent w-full"
       >
         <Geographies geography={geoUrl}>
-          {({ geographies }) =>
-            geographies.map((geo) => (
+          {({ geographies }: { geographies: any[] }) =>
+            geographies.map((geo: any) => (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}

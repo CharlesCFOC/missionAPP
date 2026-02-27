@@ -1401,7 +1401,9 @@ export default function VolunteerHubPage() {
       });
 
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const pdfArray = new Uint8Array(pdfBytes);
+      const pdfBuffer = pdfArray.buffer as ArrayBuffer;
+      const blob = new Blob([pdfBuffer], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
 
       const anchor = document.createElement("a");

@@ -14,6 +14,7 @@ export interface Note {
   x: number;
   y: number;
   pinned?: boolean;
+  createdAt?: string;
 }
 
 export interface Project {

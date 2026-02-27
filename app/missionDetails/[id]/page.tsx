@@ -167,11 +167,10 @@ export default function MissionDetailsPage() {
       {isEditMode && (
         <div className="fixed bottom-6 left-4 right-4 md:left-auto md:right-8 flex flex-col sm:flex-row items-stretch gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-3 rounded-2xl shadow-2xl">
           <button
-          onClick={mission.handleSave}
-          onClick={() => {
-            mission.handleSave();
-            router.push("/missionControl?tab=missions");
-          }}
+            onClick={() => {
+              mission.handleSave();
+              router.push("/missionControl?tab=missions");
+            }}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-[#271c70] hover:bg-[#ff9c4b] hover:text-black transition font-semibold"
           >
             💾 Save changes

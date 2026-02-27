@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import logo from "/public/LogoApp.png";
+import logo from "@/public/LogoApp.png";
 import HopeAvatar from "./HopeAvatar";
 
 export default function HopeInterface() {

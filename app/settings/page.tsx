@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { KeyboardEvent, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -143,7 +143,7 @@ const nameFromEmail = (email: string | null | undefined) => {
     .join(" ");
 };
 
-export default function SettingsPage() {
+function SettingsPageContent() {
   const [activeTab, setActiveTab] = useState<TabKey>("profile");
   const supabase = useSupabaseClient();
   const session = useSession();
@@ -481,6 +481,18 @@ export default function SettingsPage() {
         </div>
       </section>
     </AuthGuard>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense
+      fallback={
+        <section className="min-h-[calc(100vh-5rem)] bg-gradient-to-br from-[#080313] via-[#260d5c] to-[#5d3ab9] px-4 py-16 text-white" />
+      }
+    >
+      <SettingsPageContent />
+    </Suspense>
   );
 }
 

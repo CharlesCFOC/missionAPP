@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import AuthCard from "@/components/auth/AuthCard";
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const session = useSession();
@@ -104,5 +104,13 @@ export default function ForgotPasswordPage() {
         </button>
       </form>
     </AuthCard>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={null}>
+      <ForgotPasswordPageContent />
+    </Suspense>
   );
 }

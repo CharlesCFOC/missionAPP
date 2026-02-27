@@ -21,7 +21,7 @@ import {
   Wallet,
 } from "lucide-react";
 import Lottie from "lottie-react";
-import hopeAvatar from "/public/hope-avatar.json";
+import hopeAvatar from "@/public/hope-avatar.json";
 
 const missionManagerTools = [
   {

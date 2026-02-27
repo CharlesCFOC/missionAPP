@@ -143,7 +143,6 @@ export const LeadersSection = ({
 
             <img
               src={
-                leader.image ||
                 leader.avatar ||
                 (isEditMode
                   ? "https://via.placeholder.com/128x128.png?text=Avatar"

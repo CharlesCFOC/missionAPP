@@ -24,19 +24,21 @@ marked.use({
   headerIds: false,
   mangle: false,
   renderer: {
-    list(body, ordered) {
+    list(token: any) {
+      const ordered = Boolean(token?.ordered);
+      const body = typeof token?.body === "string" ? token.body : "";
       return ordered
         ? `<ol style="margin-left: 20px; list-style-type: decimal;">${body}</ol>`
         : `<ul style="margin-left: 20px; list-style-type: disc;">${body}</ul>`;
     },
-    strong(text) {
+    strong(text: any) {
       return `<strong style="font-weight:700;">${text}</strong>`;
     },
-    em(text) {
+    em(text: any) {
       return `<em style="font-style:italic;">${text}</em>`;
     },
-  },
-});
+  } as any,
+} as any);
 
 export default function NotesWall({ notes, setNotes }: Props) {
   const safeNotes = notes || [];
@@ -131,6 +133,8 @@ export default function NotesWall({ notes, setNotes }: Props) {
       title: "Untitled",
       content: content,
       color: selectedColor,
+      x: 0,
+      y: 0,
       createdAt: new Date().toISOString(),
     };
     setNotes([...safeNotes, note]);
@@ -207,7 +211,6 @@ export default function NotesWall({ notes, setNotes }: Props) {
                   "strikethrough",
                   "unordered-list",
                   "ordered-list",
-                  "clean",
                 ],
                 autofocus: true,
                 minHeight: "120px",

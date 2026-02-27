@@ -1,9 +1,55 @@
 "use client";
 import { useState } from "react";
 
+type ShopItem = {
+  name: string;
+  price: string;
+  image: string;
+  description: string;
+  tag: string;
+};
+
+type QuizQuestion = {
+  question: string;
+  options: string[];
+  correct: number;
+};
+
+type TestimonialItem = {
+  name: string;
+  message: string;
+  image: string;
+};
+
+type UpdateItem = {
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+};
+
+type ProjectFormData = {
+  name: string;
+  country: string;
+  goal: string;
+  description: string;
+  image: string;
+  gallery: string[];
+  tabs: {
+    shop: boolean;
+    quiz: boolean;
+    testimonials: boolean;
+    updates: boolean;
+  };
+  shopItems: ShopItem[];
+  quizQuestions: QuizQuestion[];
+  testimonials: TestimonialItem[];
+  updates: UpdateItem[];
+};
+
 export default function CreateProjectForm() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ProjectFormData>({
     name: "",
     country: "",
     goal: "",

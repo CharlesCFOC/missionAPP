@@ -273,7 +273,7 @@ export default function MissionTeamsTab() {
               onSelect={() => toggleSelect(member.id)}
               onEdit={() => handleEdit(member)}
               onOpen={() => openDrawer(member)}
-              onAssign={handleOpenAssign}
+              onAssign={() => handleOpenAssign(member)}
             />
           ))}
           {filteredMembers.length === 0 && (
