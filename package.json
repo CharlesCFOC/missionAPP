@@ -3,25 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "clean:next": "node -e \"require('fs').rmSync('.next', { recursive: true, force: true });\"",
+    "dev:clean": "npm run clean:next && npm run dev",
+    "dev": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next dev -p 3001",
+    "build": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next build",
+    "start": "NODE_EXTRA_CA_CERTS=certs/node-extra-ca.pem next start -p 3001",
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@supabase/supabase-js": "^2.80.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "d3-geo": "^3.1.1",
+    "easymde": "^2.20.0",
+    "framer-motion": "^12.23.24",
+    "keen-slider": "^6.8.6",
+    "lottie-react": "^2.4.1",
+    "lucide-react": "^0.546.0",
+    "marked": "^16.4.1",
+    "next": "15.5.6",
+    "openai": "^6.8.1",
+    "pdf-lib": "^1.17.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.5.6"
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.1.0",
+    "react-quill": "^2.0.0",
+    "react-simple-maps": "^3.0.0",
+    "react-simplemde-editor": "^5.2.0",
+    "recharts": "^2.12.2",
+    "three": "^0.180.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.6",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
